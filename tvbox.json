@@ -1,0 +1,33 @@
+{
+  "spider": "",
+  "wallpaper": "https://picsum.photos/1920/1080?random=1",
+  "sites": [
+    {
+      "key": "demo_movie",
+      "name": "【示例】影视库（请替换为自有API）",
+      "type": 3,
+      "api": "https://api.example.com/movie?wd={wd}",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "demo_music",
+      "name": "【示例】音乐库（请替换为自有API）",
+      "type": 3,
+      "api": "https://api.example.com/music?wd={wd}",
+      "searchable": 1,
+      "quickSearch": 0
+    }
+  ],
+  "parses": [
+    {
+      "name": "【示例】解析（需部署后端）",
+      "type": 0,
+      "url": "https://your-domain.com/parse?url="
+    }
+  ],
+  "flags": ["qq", "iqiyi", "mgtv", "youku", "bilibili", "ku6", "sohu"],
+  "lives": [],
+  "warning": "⚠️ 本配置仅作技术验证！请替换为自有合规数据源，遵守《网络安全法》"
+}

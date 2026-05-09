@@ -1,163 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TVBOX - 在线视频播放器</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="utf-8">
+  <title>TVBox资源站 · Solo建设中</title>
+  <style>body{font-family:sans-serif;text-align:center;padding:50px}code{background:#f0f0f0;padding:5px;border-radius:3px}</style>
 </head>
 <body>
-  <div class="app">
-    <!-- 顶部导航 -->
-    <header class="header">
-      <div class="header-content">
-        <a href="#" class="logo">
-          <span class="logo-icon">📺</span>
-          <span class="logo-text">TVBOX</span>
-        </a>
-        <nav class="nav">
-          <a href="#" class="nav-item active" data-tab="home">首页</a>
-          <a href="#" class="nav-item" data-tab="source">源管理</a>
-          <a href="#" class="nav-item" data-tab="player">播放器</a>
-        </nav>
-        <div class="header-right">
-          <button class="admin-btn" onclick="showLogin()">管理后台</button>
-        </div>
-      </div>
-    </header>
-
-    <!-- 主要内容 -->
-    <main class="main">
-      <!-- 首页 -->
-      <div id="home-tab" class="tab-content active">
-        <section class="hero">
-          <div class="hero-content">
-            <h1 class="hero-title">TVBOX 在线播放器</h1>
-            <p class="hero-desc">简洁、强大的在线视频播放器</p>
-            <div class="hero-actions">
-              <button class="btn btn-primary" onclick="switchTab('source')">立即使用</button>
-              <a href="#" class="btn btn-outline" onclick="showLogin()">登录后台</a>
-            </div>
-          </div>
-        </section>
-
-        <section class="features">
-          <div class="feature-item">
-            <div class="feature-icon">🎬</div>
-            <h3 class="feature-title">支持多源</h3>
-            <p class="feature-desc">支持多个视频源，自动切换</p>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">⚡</div>
-            <h3 class="feature-title">高速解析</h3>
-            <p class="feature-desc">智能解析，极速播放</p>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">📱</div>
-            <h3 class="feature-title">响应式</h3>
-            <p class="feature-desc">完美适配各种设备</p>
-          </div>
-        </section>
-
-        <section class="preview-sources">
-          <h2 class="section-title">推荐视频源</h2>
-          <div class="sources-grid" id="preview-sources">
-            <!-- 源会动态加载 -->
-          </div>
-        </section>
-      </div>
-
-      <!-- 源管理 -->
-      <div id="source-tab" class="tab-content">
-        <div class="page-header">
-          <h2 class="page-title">视频源管理</h2>
-          <button class="btn btn-sm btn-primary" onclick="addSource()">添加源</button>
-        </div>
-        
-        <div class="sources-container">
-          <div class="source-form" id="source-form" style="display: none;">
-            <div class="form-group">
-              <label>源名称</label>
-              <input type="text" id="source-name" placeholder="请输入源名称">
-            </div>
-            <div class="form-group">
-              <label>源地址</label>
-              <input type="text" id="source-url" placeholder="请输入源地址">
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-outline" onclick="hideSourceForm()">取消</button>
-              <button class="btn btn-primary" onclick="saveSource()">保存</button>
-            </div>
-          </div>
-
-          <div class="sources-list" id="sources-list">
-            <!-- 源列表 -->
-          </div>
-        </div>
-      </div>
-
-      <!-- 播放器 -->
-      <div id="player-tab" class="tab-content">
-        <div class="player-container">
-          <div class="player-controls">
-            <div class="source-selector">
-              <label>选择视频源</label>
-              <select id="player-source" onchange="loadSource()">
-                <option value="">请选择源</option>
-              </select>
-            </div>
-            <div class="search-box">
-              <input type="text" id="search-input" placeholder="搜索视频...">
-              <button class="btn btn-primary" onclick="searchVideo()">搜索</button>
-            </div>
-          </div>
-          
-          <div class="video-display">
-            <div class="video-list" id="video-list">
-              <div class="empty-state">
-                <div class="empty-icon">🎥</div>
-                <p>请选择视频源后搜索</p>
-              </div>
-            </div>
-            <div class="video-player" id="video-player" style="display: none;">
-              <div class="player-header">
-                <h3 id="video-title">视频标题</h3>
-                <button class="btn btn-sm btn-outline" onclick="backToList()">返回列表</button>
-              </div>
-              <iframe id="video-iframe" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- 底部 -->
-    <footer class="footer">
-      <p>&copy; 2026 TVBOX. All rights reserved.</p>
-    </footer>
-  </div>
-
-  <!-- 登录弹窗 -->
-  <div id="login-modal" class="modal">
-    <div class="modal-content">
-      <h2 class="modal-title">管理后台登录</h2>
-      <div class="form-group">
-        <label>用户名</label>
-        <input type="text" id="username" placeholder="admin">
-      </div>
-      <div class="form-group">
-        <label>密码</label>
-        <input type="password" id="password" placeholder="longben314">
-      </div>
-      <div id="login-error" class="error-msg"></div>
-      <div class="modal-actions">
-        <button class="btn btn-outline" onclick="closeModal()">取消</button>
-        <button class="btn btn-primary" onclick="doLogin()">登录</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/main.js"></script>
+  <h1>🎬 TVBox资源站</h1>
+  <p>✅ 配置文件已就绪：<code>tvbox.json</code></p>
+  <p>📱 TVBox配置地址：<br><code id="cfg"></code></p>
+  <p style="color:#e74c3c;margin-top:20px">⚠️ 请将API替换为自有合规数据源！</p>
+  <script>
+    // 自动显示当前raw链接（需先推送到GitHub）
+    const user = location.pathname.split('/')[1] || 'longben314';
+    document.getElementById('cfg').innerText = 
+      `https://raw.githubusercontent.com/longben314/music-video-aggregator/main/tvbox.json`;
+  </script>
 </body>
 </html>
