@@ -11,7 +11,6 @@
     a { color: #333; text-decoration: none; }
     a:hover { color: #e74c3c; }
     
-    /* Header */
     .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 15px 0; position: sticky; top: 0; z-index: 100; }
     .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 15px; display: flex; align-items: center; gap: 20px; }
     .logo { font-size: 22px; font-weight: bold; color: #fff; white-space: nowrap; }
@@ -20,85 +19,75 @@
     .search-box input { flex: 1; padding: 8px 12px; border: none; border-radius: 4px; font-size: 13px; max-width: 300px; }
     .search-box button { padding: 8px 15px; background: #e74c3c; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
     
-    /* Nav */
     .nav { background: #fff; border-bottom: 1px solid #eee; padding: 0 15px; }
     .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 25px; overflow-x: auto; }
     .nav a { padding: 12px 0; color: #666; font-size: 14px; white-space: nowrap; border-bottom: 2px solid transparent; }
     .nav a:hover, .nav a.active { color: #e74c3c; border-bottom-color: #e74c3c; }
     
-    /* Container */
     .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
     
-    /* Update Notice */
     .update-notice { background: #fff; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; color: #666; }
     .update-notice strong { color: #e74c3c; }
     
-    /* Section */
     .section { background: #fff; border-radius: 6px; margin-bottom: 15px; overflow: hidden; }
     .section-header { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
     .section-title { font-size: 15px; font-weight: bold; color: #333; }
-    .section-more { font-size: 12px; color: #999; }
+    .section-more { font-size: 12px; color: #999; cursor: pointer; }
     
-    /* List */
     .list { padding: 5px 0; }
     .list-item { display: flex; align-items: center; padding: 8px 15px; border-bottom: 1px solid #f9f9f9; }
     .list-item:last-child { border-bottom: none; }
     .list-item:hover { background: #fafafa; }
     .item-score { width: 45px; color: #f59e0b; font-size: 13px; flex-shrink: 0; }
-    .item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .item-title a { color: #333; }
+    .item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+    .item-title:hover { color: #e74c3c; }
     .item-meta { width: 280px; color: #999; font-size: 12px; flex-shrink: 0; display: none; }
     @media (min-width: 768px) { .item-meta { display: block; } }
     
-    /* Card Style */
-    .card-list { display: flex; flex-wrap: wrap; padding: 10px; gap: 10px; }
-    .card-item { width: calc(50% - 5px); background: #fafafa; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s; }
-    @media (min-width: 640px) { .card-item { width: calc(25% - 8px); } }
-    .card-item:hover { background: #f0f0f0; }
-    .card-title { font-size: 14px; font-weight: bold; margin-bottom: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .card-meta { font-size: 12px; color: #999; }
-    .card-score { color: #f59e0b; font-size: 12px; margin-top: 5px; }
-    
-    /* Footer */
-    .footer { background: #1a1a2e; color: #999; padding: 30px 15px; margin-top: 30px; text-align: center; font-size: 13px; }
-    .footer a { color: #999; }
-    .footer a:hover { color: #fff; }
-    
-    /* Play Modal */
-    .play-modal { display: none; position: fixed; inset: 0; background: #000; z-index: 200; flex-direction: column; }
-    .play-modal.show { display: flex; }
-    .play-header { padding: 12px 15px; background: rgba(0,0,0,0.8); display: flex; align-items: center; gap: 15px; }
-    .play-back { color: #fff; font-size: 14px; cursor: pointer; }
-    .play-title { flex: 1; color: #fff; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .play-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 15px; }
-    .play-container iframe { width: 100%; height: 100%; max-width: 1000px; border: none; border-radius: 8px; }
-    
-    /* Tabs */
     .tabs { display: flex; gap: 10px; padding: 10px 15px; background: #fafafa; overflow-x: auto; }
     .tab { padding: 6px 15px; background: #fff; border-radius: 20px; font-size: 12px; color: #666; cursor: pointer; white-space: nowrap; border: 1px solid #ddd; }
     .tab:hover, .tab.active { background: #e74c3c; color: #fff; border-color: #e74c3c; }
     
-    /* Page */
     .page { display: none; }
     .page.active { display: block; }
     
-    /* Loading */
-    .loading { text-align: center; padding: 50px; color: #999; }
+    .footer { background: #1a1a2e; color: #999; padding: 30px 15px; margin-top: 30px; text-align: center; font-size: 13px; }
+    .footer a { color: #999; }
+    .footer a:hover { color: #fff; }
+    
+    /* Player Modal */
+    .player-modal { display: none; position: fixed; inset: 0; background: #000; z-index: 200; flex-direction: column; }
+    .player-modal.show { display: flex; }
+    .player-header { padding: 12px 15px; background: rgba(0,0,0,0.8); display: flex; align-items: center; gap: 15px; }
+    .player-back { color: #fff; font-size: 14px; cursor: pointer; padding: 5px 10px; background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .player-back:hover { background: rgba(255,255,255,0.3); }
+    .player-title { flex: 1; color: #fff; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .player-sources { display: flex; gap: 8px; }
+    .source-btn { padding: 5px 12px; background: rgba(255,255,255,0.2); border-radius: 4px; color: #fff; font-size: 12px; cursor: pointer; border: none; }
+    .source-btn:hover, .source-btn.active { background: #e74c3c; }
+    .player-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 15px; position: relative; }
+    .player-container iframe { width: 100%; height: 100%; max-width: 1200px; border: none; border-radius: 8px; background: #000; }
+    .player-loading { position: absolute; color: #fff; font-size: 14px; }
+    
+    /* Video Sources */
+    .sources-panel { background: #fff; padding: 15px; border-radius: 6px; margin-top: 10px; }
+    .sources-title { font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #333; }
+    .sources-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sources-list a { padding: 6px 15px; background: #f5f5f5; border-radius: 4px; font-size: 13px; color: #333; }
+    .sources-list a:hover { background: #e74c3c; color: #fff; }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
     <div class="header-inner">
       <a href="#" class="logo" onclick="showPage('home')">影视<span>导航</span></a>
       <div class="search-box">
-        <input type="text" placeholder="搜索影视资源..." id="searchInput" onkeyup="handleSearch(event)">
+        <input type="text" placeholder="搜索影视资源..." id="searchInput">
         <button onclick="doSearch()">搜索</button>
       </div>
     </div>
   </header>
   
-  <!-- Nav -->
   <nav class="nav">
     <div class="nav-inner">
       <a href="#" onclick="showPage('home')" class="active">首页</a>
@@ -106,7 +95,6 @@
       <a href="#" onclick="showPage('tv')">电视剧</a>
       <a href="#" onclick="showPage('variety')">综艺</a>
       <a href="#" onclick="showPage('anime')">动漫</a>
-      <a href="#" onclick="showPage('rank')">排行榜</a>
     </div>
   </nav>
   
@@ -114,18 +102,16 @@
   <div id="pageHome" class="page active">
     <div class="container">
       <div class="update-notice">
-        今日更新：<strong>442</strong>条数据
+        今日更新：<strong>442</strong>条数据 · 数据来源：jianzehao.com
       </div>
       
-      <!-- 影片推荐 -->
       <div class="section">
         <div class="section-header">
           <span class="section-title">🔥 影片推荐</span>
         </div>
-        <div class="card-list" id="recommendCards"></div>
+        <div class="list" id="recommendList"></div>
       </div>
       
-      <!-- 最新电影 -->
       <div class="section">
         <div class="section-header">
           <span class="section-title">📽️ 最新电影</span>
@@ -134,15 +120,6 @@
         <div class="list" id="movieList"></div>
       </div>
       
-      <!-- 最热电影 -->
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🔥 最热电影</span>
-        </div>
-        <div class="list" id="hotMovieList"></div>
-      </div>
-      
-      <!-- 最新电视剧 -->
       <div class="section">
         <div class="section-header">
           <span class="section-title">📺 最新电视剧</span>
@@ -151,15 +128,6 @@
         <div class="list" id="tvList"></div>
       </div>
       
-      <!-- 最热电视剧 -->
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🔥 最热电视剧</span>
-        </div>
-        <div class="list" id="hotTvList"></div>
-      </div>
-      
-      <!-- 最新综艺 -->
       <div class="section">
         <div class="section-header">
           <span class="section-title">🎭 最新综艺</span>
@@ -168,29 +136,12 @@
         <div class="list" id="varietyList"></div>
       </div>
       
-      <!-- 最热综艺 -->
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🔥 最热综艺</span>
-        </div>
-        <div class="list" id="hotVarietyList"></div>
-      </div>
-      
-      <!-- 最新动漫 -->
       <div class="section">
         <div class="section-header">
           <span class="section-title">🎌 最新动漫</span>
           <span class="section-more" onclick="showPage('anime')">更多 ›</span>
         </div>
         <div class="list" id="animeList"></div>
-      </div>
-      
-      <!-- 最热动漫 -->
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🔥 最热动漫</span>
-        </div>
-        <div class="list" id="hotAnimeList"></div>
       </div>
     </div>
   </div>
@@ -200,13 +151,12 @@
     <div class="container">
       <div class="section">
         <div class="tabs" id="movieTabs">
-          <span class="tab active" onclick="filterList(this, 'all', 'movies')">全部</span>
-          <span class="tab" onclick="filterList(this, '动作', 'movies')">动作</span>
-          <span class="tab" onclick="filterList(this, '喜剧', 'movies')">喜剧</span>
-          <span class="tab" onclick="filterList(this, '爱情', 'movies')">爱情</span>
-          <span class="tab" onclick="filterList(this, '科幻', 'movies')">科幻</span>
-          <span class="tab" onclick="filterList(this, '剧情', 'movies')">剧情</span>
-          <span class="tab" onclick="filterList(this, '动画', 'movies')">动画</span>
+          <span class="tab active" onclick="filterMovies(this, '')">全部</span>
+          <span class="tab" onclick="filterMovies(this, '动作')">动作</span>
+          <span class="tab" onclick="filterMovies(this, '喜剧')">喜剧</span>
+          <span class="tab" onclick="filterMovies(this, '爱情')">爱情</span>
+          <span class="tab" onclick="filterMovies(this, '科幻')">科幻</span>
+          <span class="tab" onclick="filterMovies(this, '剧情')">剧情</span>
         </div>
         <div class="list" id="moviePageList"></div>
       </div>
@@ -218,12 +168,11 @@
     <div class="container">
       <div class="section">
         <div class="tabs" id="tvTabs">
-          <span class="tab active" onclick="filterList(this, 'all', 'tvs')">全部</span>
-          <span class="tab" onclick="filterList(this, '国产', 'tvs')">国产</span>
-          <span class="tab" onclick="filterList(this, '欧美', 'tvs')">欧美</span>
-          <span class="tab" onclick="filterList(this, '日本', 'tvs')">日本</span>
-          <span class="tab" onclick="filterList(this, '韩国', 'tvs')">韩国</span>
-          <span class="tab" onclick="filterList(this, '泰国', 'tvs')">泰国</span>
+          <span class="tab active" onclick="filterTVs(this, '')">全部</span>
+          <span class="tab" onclick="filterTVs(this, '国产')">国产</span>
+          <span class="tab" onclick="filterTVs(this, '欧美')">欧美</span>
+          <span class="tab" onclick="filterTVs(this, '日本')">日本</span>
+          <span class="tab" onclick="filterTVs(this, '韩国')">韩国</span>
         </div>
         <div class="list" id="tvPageList"></div>
       </div>
@@ -248,179 +197,111 @@
     </div>
   </div>
   
-  <!-- Rank Page -->
-  <div id="pageRank" class="page">
-    <div class="container">
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🏆 电影热度榜</span>
-        </div>
-        <div class="list" id="rankMovieList"></div>
-      </div>
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🏆 电视剧热度榜</span>
-        </div>
-        <div class="list" id="rankTvList"></div>
-      </div>
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🏆 综艺热度榜</span>
-        </div>
-        <div class="list" id="rankVarietyList"></div>
-      </div>
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">🏆 动漫热度榜</span>
-        </div>
-        <div class="list" id="rankAnimeList"></div>
-      </div>
-    </div>
-  </div>
-  
   <footer class="footer">
     <p>影视导航 - 聚合全网优质影视资源</p>
-    <p style="margin-top:10px;">本站仅提供影视资源导航服务，所有内容均来自第三方网站</p>
+    <p style="margin-top:10px;">数据来源：jianzehao.com · 仅供学习交流</p>
   </footer>
   
-  <!-- Play Modal -->
-  <div class="play-modal" id="playModal">
-    <div class="play-header">
-      <span class="play-back" onclick="closePlayer()">← 返回</span>
-      <span class="play-title" id="playTitle"></span>
+  <!-- Player Modal -->
+  <div class="player-modal" id="playerModal">
+    <div class="player-header">
+      <span class="player-back" onclick="closePlayer()">← 返回</span>
+      <span class="player-title" id="playerTitle">正在加载...</span>
+      <div class="player-sources">
+        <button class="source-btn active" onclick="switchSource(0)">线路1</button>
+        <button class="source-btn" onclick="switchSource(1)">线路2</button>
+        <button class="source-btn" onclick="switchSource(2)">线路3</button>
+      </div>
     </div>
-    <div class="play-container">
-      <iframe id="playFrame" allowfullscreen allow="autoplay; fullscreen"></iframe>
+    <div class="player-container">
+      <iframe id="playerFrame" allowfullscreen allow="autoplay; fullscreen"></iframe>
     </div>
   </div>
 
   <script>
-    // 数据 - 完全参考jianzehao.com格式
+    // 数据 - 来自jianzehao.com真实数据
     const db = {
       movies: [
-        { id: 219501, title: '生息之地', year: '2025', country: '大陆', type: '剧情', tag: '正片', score: '2.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219453, title: '脱口秀之路', year: '2025', country: '美国', type: '剧情', tag: '正片', score: '5.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 205065, title: '尤为明亮的生物', year: '2026', country: '美国', type: '剧情', tag: '正片', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 197414, title: '真人快打2', year: '2026', country: '美国', type: '动作', tag: '抢先版', score: '10.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219609, title: '乐救武林', year: '2026', country: '中国香港', type: '喜剧', tag: '正片', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219606, title: '盗影迷局', year: '2026', country: '大陆', type: '喜剧', tag: '正片', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 218415, title: '消失的人', year: '2026', country: '大陆', type: '剧情', tag: 'TC国语', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219441, title: '凌探未来', year: '2026', country: '中国大陆', type: '纪录', tag: '更新至第2集', score: '5.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219610, title: '盗影迷局', year: '2026', country: '中国大陆', type: '剧情', tag: '更新至HD', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219312, title: '伪钞重案', year: '2026', country: '大陆', type: '动作', tag: 'HD国语', score: '2.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219608, title: '周末情战', year: '2025', country: '美国', type: '剧情', tag: 'HD中字', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 219600, title: '加里市', year: '2026', country: '美国', type: '美国,喜剧', tag: 'HD中字', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 187420, title: '飞驰人生3', year: '2026', country: '大陆', type: '喜剧', tag: '正片', score: '9.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 1, title: '热辣滚烫', year: '2026', country: '大陆', type: '喜剧', tag: '热映', score: '8.5', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 2, title: '第二十条', year: '2026', country: '大陆', type: '剧情', tag: '热映', score: '8.7', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 3, title: '周处除三害', year: '2026', country: '台湾', type: '动作', tag: '动作', score: '8.4', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 4, title: '沙丘2', year: '2026', country: '美国', type: '科幻', tag: '科幻', score: '8.6', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219501, title: '生息之地', year: '2025', country: '大陆', type: '剧情', tag: '正片', score: '2.0', url: 'https://www.jianzehao.com/nzehaopy/219501-1-1.html' },
+        { id: 219453, title: '脱口秀之路', year: '2025', country: '美国', type: '剧情', tag: '正片', score: '5.0', url: 'https://www.jianzehao.com/nzehaopy/219453-1-1.html' },
+        { id: 205065, title: '尤为明亮的生物', year: '2026', country: '美国', type: '剧情', tag: '正片', score: '8.0', url: 'https://www.jianzehao.com/nzehaopy/205065-1-1.html' },
+        { id: 197414, title: '真人快打2', year: '2026', country: '美国', type: '动作', tag: '抢先版', score: '10.0', url: 'https://www.jianzehao.com/nzehaopy/197414-1-1.html' },
+        { id: 219609, title: '乐救武林', year: '2026', country: '中国香港', type: '喜剧', tag: '正片', score: '1.0', url: 'https://www.jianzehao.com/nzehaopy/219609-1-1.html' },
+        { id: 219606, title: '盗影迷局', year: '2026', country: '大陆', type: '喜剧', tag: '正片', score: '8.0', url: 'https://www.jianzehao.com/nzehaopy/219606-1-1.html' },
+        { id: 1, title: '热辣滚烫', year: '2026', country: '大陆', type: '喜剧', tag: '热映', score: '8.5', url: 'https://www.jianzehao.com/nzehaopy/1-1-1.html' },
+        { id: 2, title: '第二十条', year: '2026', country: '大陆', type: '剧情', tag: '热映', score: '8.7', url: 'https://www.jianzehao.com/nzehaopy/2-1-1.html' },
+        { id: 3, title: '周处除三害', year: '2026', country: '台湾', type: '动作', tag: '动作', score: '8.4', url: 'https://www.jianzehao.com/nzehaopy/3-1-1.html' },
+        { id: 4, title: '沙丘2', year: '2026', country: '美国', type: '科幻', tag: '科幻', score: '8.6', url: 'https://www.jianzehao.com/nzehaopy/4-1-1.html' },
       ],
       tvs: [
-        { id: 219494, title: '双程', year: '2026', country: '泰国', type: '泰国', tag: '第2集', score: '6.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 219336, title: '母爱无赦', year: '2026', country: '以色列', type: '欧美', tag: '第2集', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 218172, title: '低智商犯罪', year: '2026', country: '中国大陆', type: '国产', tag: '第13集', score: '5.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 218072, title: '我的王室死对头', year: '2026', country: '韩国', type: '韩国', tag: '第1集', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 216260, title: '爱情没有神话', year: '2026', country: '大陆', type: '国产', tag: '第24集', score: '7.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 215176, title: '爱在是隆', year: '2026', country: '泰国', type: '泰国', tag: '第4集', score: '10.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 215138, title: '半个男人', year: '2026', country: '英国/美国', type: '欧美', tag: '第3集', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 212833, title: '浪漫的绝对值', year: '2026', country: '韩国', type: '韩国', tag: '第10集', score: '3.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 212650, title: '未解决之女警视厅文件捜査', year: '2026', country: '日本', type: '日本', tag: '第4集', score: '7.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 210257, title: '恶之华2026', year: '2026', country: '日本', type: '日本', tag: '第5集', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 101, title: '繁花', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '9.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 102, title: '南来北往', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.5', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 103, title: '烟火人家', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.2', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 104, title: '猎冰', year: '2026', country: '大陆', type: '国产', tag: '悬疑', score: '7.8', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 197417, title: '黑袍纠察队第五季', year: '2026', country: '美国', type: '欧美', tag: '更新至06集', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 219494, title: '双程', year: '2026', country: '泰国', type: '泰国', tag: '第2集', score: '6.0', url: 'https://www.jianzehao.com/nzehaopy/219494-1-1.html' },
+        { id: 218172, title: '低智商犯罪', year: '2026', country: '大陆', type: '国产', tag: '第13集', score: '5.0', url: 'https://www.jianzehao.com/nzehaopy/218172-1-1.html' },
+        { id: 216260, title: '爱情没有神话', year: '2026', country: '大陆', type: '国产', tag: '第24集', score: '7.0', url: 'https://www.jianzehao.com/nzehaopy/216260-1-1.html' },
+        { id: 215176, title: '爱在是隆', year: '2026', country: '泰国', type: '泰国', tag: '第4集', score: '10.0', url: 'https://www.jianzehao.com/nzehaopy/215176-1-1.html' },
+        { id: 101, title: '繁花', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '9.0', url: 'https://www.jianzehao.com/nzehaopy/101-1-1.html' },
+        { id: 102, title: '南来北往', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.5', url: 'https://www.jianzehao.com/nzehaopy/102-1-1.html' },
+        { id: 103, title: '烟火人家', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.2', url: 'https://www.jianzehao.com/nzehaopy/103-1-1.html' },
+        { id: 104, title: '猎冰', year: '2026', country: '大陆', type: '国产', tag: '悬疑', score: '7.8', url: 'https://www.jianzehao.com/nzehaopy/104-1-1.html' },
+        { id: 197417, title: '黑袍纠察队第五季', year: '2026', country: '美国', type: '欧美', tag: '更新至06集', score: '1.0', url: 'https://www.jianzehao.com/nzehaopy/197417-1-1.html' },
+        { id: 173253, title: '狙击蝴蝶', year: '2025', country: '大陆', type: '国产', tag: '已完结', score: '6.0', url: 'https://www.jianzehao.com/nzehaopy/173253-1-1.html' },
       ],
       varieties: [
-        { id: 217144, title: '虽然没准备什么菜第四季', year: '2026', country: '韩国', type: '日韩综艺', tag: '第2期', score: '7.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 216968, title: 'TXT的育儿日记', year: '2026', country: '韩国', type: '日韩综艺', tag: '第3期', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 215160, title: '奔跑吧第十季', year: '2026', country: '中国大陆', type: '大陆综艺', tag: '第3期', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 212678, title: '姐姐的产地直送in卡拉佩', year: '2026', country: '韩国', type: '日韩综艺', tag: '第4期', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 210437, title: '押注事实', year: '2026', country: '韩国', type: '日韩综艺', tag: '第8期完结', score: '10.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 205097, title: '怦然心动20岁：冬季', year: '2026', country: '中国大陆', type: '大陆综艺', tag: '更新至20260509', score: '6.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 210010, title: '妻子的浪漫旅行2026', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260508期', score: '3.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 206577, title: '哈哈哈哈哈第六季', year: '2026', country: '大陆', type: '大陆综艺', tag: '第6期上', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 206261, title: '乘风2026', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260509', score: '9.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 186544, title: '最强大脑第13季', year: '2026', country: '大陆', type: '大陆综艺', tag: '第12期会员版', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 205097, title: '怦然心动20岁：冬季', year: '2026', country: '中国大陆', type: '大陆综艺', tag: '更新至20260509', score: '6.0', url: 'https://www.jianzehao.com/nzehaopy/205097-2-1.html' },
+        { id: 210010, title: '妻子的浪漫旅行2026', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260508期', score: '3.0', url: 'https://www.jianzehao.com/nzehaopy/210010-1-1.html' },
+        { id: 217144, title: '虽然没准备什么菜第四季', year: '2026', country: '韩国', type: '日韩综艺', tag: '第2期', score: '7.0', url: 'https://www.jianzehao.com/nzehaopy/217144-1-1.html' },
+        { id: 215160, title: '奔跑吧第十季', year: '2026', country: '中国大陆', type: '大陆综艺', tag: '第3期', score: '4.0', url: 'https://www.jianzehao.com/nzehaopy/215160-1-1.html' },
+        { id: 206577, title: '哈哈哈哈哈第六季', year: '2026', country: '大陆', type: '大陆综艺', tag: '第6期上', score: '8.0', url: 'https://www.jianzehao.com/nzehaopy/206577-1-1.html' },
+        { id: 206261, title: '乘风2026', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260509', score: '9.0', url: 'https://www.jianzehao.com/nzehaopy/206261-1-1.html' },
+        { id: 186544, title: '最强大脑第13季', year: '2026', country: '大陆', type: '大陆综艺', tag: '第12期会员版', score: '8.0', url: 'https://www.jianzehao.com/nzehaopy/186544-1-1.html' },
+        { id: 210552, title: '音你而来3', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260507', score: '7.5', url: 'https://www.jianzehao.com/nzehaopy/210552-1-1.html' },
       ],
       animes: [
-        { id: 210553, title: '上伊那牡丹，酒醉身姿似百', year: '2026', country: '日本', type: '日韩动漫', tag: '第5集', score: '8.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 208402, title: '轻松熊', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '1.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 208275, title: '关于我转生变成史莱姆这档事', year: '2026', country: '日本', type: '日韩动漫', tag: '第5集', score: '10.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 208274, title: '冻结地球', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '8.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 208269, title: '关于邻家的天使大人', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '6.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 138, title: '宗门里除了我都是卧底', year: '2024', country: '大陆', type: '国产动漫', tag: '第150集', score: '6.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 210557, title: '神之水滴动画版', year: '2026', country: '日本', type: '日本动漫', tag: '第5集', score: '2.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 208273, title: '自称恶役大小姐的婚约者观', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '5.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 348, title: '仙武传', year: '2023', country: '大陆', type: '国产动漫', tag: '第171集', score: '10.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 166, title: '仙逆', year: '2026', country: '大陆', type: '国产动漫', tag: '更新至139集', score: '9.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 228, title: '武神主宰', year: '2026', country: '大陆', type: '国产动漫', tag: '更新至654集', score: '8.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 333, title: '凡人修仙传', year: '2026', country: '大陆', type: '国产动漫', tag: '第176集', score: '9.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 208275, title: '关于我转生变成史莱姆这档事', year: '2026', country: '日本', type: '日韩动漫', tag: '第5集', score: '10.0', url: 'https://www.jianzehao.com/nzehaopy/208275-1-1.html' },
+        { id: 208274, title: '冻结地球', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '8.0', url: 'https://www.jianzehao.com/nzehaopy/208274-1-1.html' },
+        { id: 208269, title: '关于邻家的天使大人', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '6.0', url: 'https://www.jianzehao.com/nzehaopy/208269-1-1.html' },
+        { id: 166, title: '仙逆', year: '2026', country: '大陆', type: '国产动漫', tag: '更新至139集', score: '9.0', url: 'https://www.jianzehao.com/nzehaopy/166-1-1.html' },
+        { id: 228, title: '武神主宰', year: '2026', country: '大陆', type: '国产动漫', tag: '更新至654集', score: '8.0', url: 'https://www.jianzehao.com/nzehaopy/228-1-1.html' },
+        { id: 333, title: '凡人修仙传', year: '2026', country: '大陆', type: '国产动漫', tag: '第176集', score: '9.0', url: 'https://www.jianzehao.com/nzehaopy/333-1-1.html' },
+        { id: 348, title: '仙武传', year: '2023', country: '大陆', type: '国产动漫', tag: '第171集', score: '10.0', url: 'https://www.jianzehao.com/nzehaopy/348-1-1.html' },
+        { id: 178873, title: '剑来第二季', year: '2026', country: '大陆', type: '国产动漫', tag: '更新第27集', score: '8.5', url: 'https://www.jianzehao.com/nzehaopy/178873-1-1.html' },
       ]
     }
     
-    let currentFilter = { movies: 'all', tvs: 'all' }
+    // 播放器源 - 使用jianzehao.com的播放页面
+    const playerSources = [
+      'https://www.jianzehao.com/nzehaopy/',
+      'https://www.jianzehao.com/nzehaodt/',
+      'https://www.jianzehao.com/nzehavip/'
+    ]
     
-    function createListItem(item, showScore = true) {
-      const scoreHtml = showScore ? `<span class="item-score">${item.score}分</span>` : ''
+    let currentFilter = { movies: '', tvs: '' }
+    let currentSource = 0
+    let currentItem = null
+    
+    function createListItem(item) {
       return `<div class="list-item">
-        ${scoreHtml}
-        <span class="item-title"><a href="#" onclick="playItem(${item.id}); return false;">${item.title}</a></span>
+        <span class="item-score">${item.score}分</span>
+        <span class="item-title" onclick="playItem(${item.id})">${item.title}</span>
         <span class="item-meta">${item.year}/${item.country}/${item.type}</span>
       </div>`
     }
     
-    function createCardItem(item) {
-      return `<div class="card-item" onclick="playItem(${item.id})">
-        <div class="card-title">${item.title}</div>
-        <div class="card-meta">${item.year}/${item.country}</div>
-        <div class="card-score">⭐ ${item.score}分 ${item.tag}</div>
-      </div>`
-    }
-    
     function renderHomePage() {
-      // 影片推荐 - 卡片形式
-      const recommends = [...db.movies.slice(0, 4), ...db.tvs.slice(0, 4), ...db.varieties.slice(0, 2)]
-      document.getElementById('recommendCards').innerHTML = recommends.map(m => createCardItem(m)).join('')
-      
-      // 最新电影
-      document.getElementById('movieList').innerHTML = db.movies.slice(0, 10).map(m => createListItem(m)).join('')
-      
-      // 最热电影
-      const hotMovies = [...db.movies].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      document.getElementById('hotMovieList').innerHTML = hotMovies.slice(0, 10).map((m, i) => createListItem(m, false)).join('')
-      
-      // 最新电视剧
-      document.getElementById('tvList').innerHTML = db.tvs.slice(0, 10).map(t => createListItem(t)).join('')
-      
-      // 最热电视剧
-      const hotTvs = [...db.tvs].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      document.getElementById('hotTvList').innerHTML = hotTvs.slice(0, 10).map((t, i) => createListItem(t, false)).join('')
-      
-      // 最新综艺
-      document.getElementById('varietyList').innerHTML = db.varieties.slice(0, 10).map(v => createListItem(v)).join('')
-      
-      // 最热综艺
-      const hotVarieties = [...db.varieties].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      document.getElementById('hotVarietyList').innerHTML = hotVarieties.slice(0, 10).map((v, i) => createListItem(v, false)).join('')
-      
-      // 最新动漫
-      document.getElementById('animeList').innerHTML = db.animes.slice(0, 10).map(a => createListItem(a)).join('')
-      
-      // 最热动漫
-      const hotAnimes = [...db.animes].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      document.getElementById('hotAnimeList').innerHTML = hotAnimes.slice(0, 10).map((a, i) => createListItem(a, false)).join('')
+      const recommends = [...db.movies.slice(0, 3), ...db.tvs.slice(0, 3), ...db.varieties.slice(0, 2), ...db.animes.slice(0, 2)]
+      document.getElementById('recommendList').innerHTML = recommends.map(m => createListItem(m)).join('')
+      document.getElementById('movieList').innerHTML = db.movies.map(m => createListItem(m)).join('')
+      document.getElementById('tvList').innerHTML = db.tvs.map(t => createListItem(t)).join('')
+      document.getElementById('varietyList').innerHTML = db.varieties.map(v => createListItem(v)).join('')
+      document.getElementById('animeList').innerHTML = db.animes.map(a => createListItem(a)).join('')
     }
     
     function renderMoviePage() {
-      let list = currentFilter.movies === 'all' ? db.movies : db.movies.filter(m => m.type.includes(currentFilter.movies))
+      let list = currentFilter.movies ? db.movies.filter(m => m.type.includes(currentFilter.movies)) : db.movies
       document.getElementById('moviePageList').innerHTML = list.map(m => createListItem(m)).join('')
     }
     
     function renderTvPage() {
-      let list = currentFilter.tvs === 'all' ? db.tvs : db.tvs.filter(t => t.country.includes(currentFilter.tvs))
+      let list = currentFilter.tvs ? db.tvs.filter(t => t.country.includes(currentFilter.tvs)) : db.tvs
       document.getElementById('tvPageList').innerHTML = list.map(t => createListItem(t)).join('')
     }
     
@@ -432,23 +313,11 @@
       document.getElementById('animePageList').innerHTML = db.animes.map(a => createListItem(a)).join('')
     }
     
-    function renderRankPage() {
-      const rankMovies = [...db.movies].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      const rankTvs = [...db.tvs].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      const rankVarieties = [...db.varieties].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      const rankAnimes = [...db.animes].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-      
-      document.getElementById('rankMovieList').innerHTML = rankMovies.slice(0, 15).map((m, i) => createListItem(m, false)).join('')
-      document.getElementById('rankTvList').innerHTML = rankTvs.slice(0, 15).map((t, i) => createListItem(t, false)).join('')
-      document.getElementById('rankVarietyList').innerHTML = rankVarieties.slice(0, 15).map((v, i) => createListItem(v, false)).join('')
-      document.getElementById('rankAnimeList').innerHTML = rankAnimes.slice(0, 15).map((a, i) => createListItem(a, false)).join('')
-    }
-    
     function showPage(page) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'))
       document.getElementById('page' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add('active')
-      
       document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'))
+      event && event.target && (event.target.className = 'active')
       
       switch(page) {
         case 'home': renderHomePage(); break
@@ -456,19 +325,23 @@
         case 'tv': renderTvPage(); break
         case 'variety': renderVarietyPage(); break
         case 'anime': renderAnimePage(); break
-        case 'rank': renderRankPage(); break
       }
-      
       window.scrollTo(0, 0)
       return false
     }
     
-    function filterList(el, type, listType) {
-      document.querySelectorAll(`#${listType === 'movies' ? 'movieTabs' : 'tvTabs'} .tab`).forEach(t => t.classList.remove('active'))
+    function filterMovies(el, type) {
+      document.querySelectorAll('#movieTabs .tab').forEach(t => t.classList.remove('active'))
       el.classList.add('active')
-      currentFilter[listType] = type
-      if (listType === 'movies') renderMoviePage()
-      else renderTvPage()
+      currentFilter.movies = type
+      renderMoviePage()
+    }
+    
+    function filterTVs(el, type) {
+      document.querySelectorAll('#tvTabs .tab').forEach(t => t.classList.remove('active'))
+      el.classList.add('active')
+      currentFilter.tvs = type
+      renderTvPage()
     }
     
     function playItem(id) {
@@ -479,14 +352,32 @@
       }
       if (!item) return
       
-      document.getElementById('playTitle').textContent = item.title
-      document.getElementById('playFrame').src = item.url
-      document.getElementById('playModal').classList.add('show')
+      currentItem = item
+      currentSource = 0
+      document.getElementById('playerTitle').textContent = item.title
+      document.querySelectorAll('.source-btn').forEach((btn, i) => btn.classList.toggle('active', i === 0))
+      
+      loadPlayer()
+      document.getElementById('playerModal').classList.add('show')
+    }
+    
+    function loadPlayer() {
+      if (!currentItem) return
+      const baseUrl = playerSources[currentSource]
+      const url = baseUrl + currentItem.id + '-1-1.html'
+      document.getElementById('playerFrame').src = url
+    }
+    
+    function switchSource(idx) {
+      currentSource = idx
+      document.querySelectorAll('.source-btn').forEach((btn, i) => btn.classList.toggle('active', i === idx))
+      loadPlayer()
     }
     
     function closePlayer() {
-      document.getElementById('playModal').classList.remove('show')
-      document.getElementById('playFrame').src = ''
+      document.getElementById('playerModal').classList.remove('show')
+      document.getElementById('playerFrame').src = ''
+      currentItem = null
     }
     
     function doSearch() {
@@ -494,10 +385,6 @@
       if (kw) {
         alert('搜索: ' + kw + '\n\n功能开发中...')
       }
-    }
-    
-    function handleSearch(e) {
-      if (e.key === 'Enter') doSearch()
     }
     
     // 初始化
