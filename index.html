@@ -4,410 +4,503 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Expires" content="0">
-  <meta http-equiv="Pragma" content="no-cache">
   <title>影视导航 - 全网影视资源聚合</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; font-size: 14px; }
+    a { color: #333; text-decoration: none; }
+    a:hover { color: #e74c3c; }
     
     /* Header */
-    .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 0; position: sticky; top: 0; z-index: 100; }
-    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-size: 28px; font-weight: bold; color: #fff; text-decoration: none; }
+    .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 15px 0; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 15px; display: flex; align-items: center; gap: 20px; }
+    .logo { font-size: 22px; font-weight: bold; color: #fff; white-space: nowrap; }
     .logo span { color: #e74c3c; }
-    .nav { display: flex; gap: 30px; flex-wrap: wrap; }
-    .nav a { color: #ccc; text-decoration: none; font-size: 14px; padding: 8px 0; transition: color 0.3s; }
-    .nav a:hover, .nav a.active { color: #fff; }
-    .search-box { display: flex; gap: 8px; }
-    .search-box input { padding: 10px 15px; border: none; border-radius: 4px; width: 200px; font-size: 14px; }
-    .search-box button { padding: 10px 20px; background: #e74c3c; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    .search-box { flex: 1; display: flex; gap: 5px; }
+    .search-box input { flex: 1; padding: 8px 12px; border: none; border-radius: 4px; font-size: 13px; max-width: 300px; }
+    .search-box button { padding: 8px 15px; background: #e74c3c; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
+    
+    /* Nav */
+    .nav { background: #fff; border-bottom: 1px solid #eee; padding: 0 15px; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 25px; overflow-x: auto; }
+    .nav a { padding: 12px 0; color: #666; font-size: 14px; white-space: nowrap; border-bottom: 2px solid transparent; }
+    .nav a:hover, .nav a.active { color: #e74c3c; border-bottom-color: #e74c3c; }
     
     /* Container */
-    .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
     
-    /* Notice */
-    .notice { background: #fff3cd; border: 1px solid #ffc107; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; color: #856404; font-size: 14px; }
+    /* Update Notice */
+    .update-notice { background: #fff; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; color: #666; }
+    .update-notice strong { color: #e74c3c; }
     
-    /* Section Title */
-    .section-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; padding-left: 15px; border-left: 4px solid #e74c3c; display: flex; align-items: center; gap: 10px; }
-    .section-title small { font-size: 12px; color: #999; font-weight: normal; }
+    /* Section */
+    .section { background: #fff; border-radius: 6px; margin-bottom: 15px; overflow: hidden; }
+    .section-header { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .section-title { font-size: 15px; font-weight: bold; color: #333; }
+    .section-more { font-size: 12px; color: #999; }
     
-    /* Movie List */
-    .movie-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin-bottom: 40px; }
-    .movie-item { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
-    .movie-item:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-    .movie-cover { position: relative; aspect-ratio: 3/4; background: #ddd; overflow: hidden; }
-    .movie-cover img { width: 100%; height: 100%; object-fit: cover; }
-    .movie-tag { position: absolute; top: 8px; left: 8px; background: #e74c3c; color: #fff; padding: 2px 8px; font-size: 11px; border-radius: 3px; }
-    .movie-score { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #ffcc00; padding: 2px 8px; font-size: 11px; border-radius: 3px; }
-    .movie-info { padding: 12px; }
-    .movie-title { font-size: 14px; font-weight: bold; margin-bottom: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333; }
-    .movie-meta { font-size: 12px; color: #999; }
-    .movie-meta span { margin-right: 10px; }
+    /* List */
+    .list { padding: 5px 0; }
+    .list-item { display: flex; align-items: center; padding: 8px 15px; border-bottom: 1px solid #f9f9f9; }
+    .list-item:last-child { border-bottom: none; }
+    .list-item:hover { background: #fafafa; }
+    .item-score { width: 45px; color: #f59e0b; font-size: 13px; flex-shrink: 0; }
+    .item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .item-title a { color: #333; }
+    .item-meta { width: 280px; color: #999; font-size: 12px; flex-shrink: 0; display: none; }
+    @media (min-width: 768px) { .item-meta { display: block; } }
     
-    /* Rank List */
-    .rank-section { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    @media (max-width: 768px) { .rank-section { grid-template-columns: repeat(2, 1fr); } }
-    .rank-box { background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .rank-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; color: #333; }
-    .rank-list { list-style: none; }
-    .rank-list li { padding: 10px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center; gap: 10px; }
-    .rank-list li:last-child { border-bottom: none; }
-    .rank-num { width: 20px; height: 20px; background: #e74c3c; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
-    .rank-num.top { background: #ff6b6b; }
-    .rank-list a { color: #333; text-decoration: none; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-    .rank-list a:hover { color: #e74c3c; }
-    
-    /* Category Nav */
-    .category-nav { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .category-nav a { padding: 8px 20px; background: #f5f5f5; border-radius: 20px; color: #333; text-decoration: none; font-size: 14px; transition: all 0.3s; }
-    .category-nav a:hover, .category-nav a.active { background: #e74c3c; color: #fff; }
+    /* Card Style */
+    .card-list { display: flex; flex-wrap: wrap; padding: 10px; gap: 10px; }
+    .card-item { width: calc(50% - 5px); background: #fafafa; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s; }
+    @media (min-width: 640px) { .card-item { width: calc(25% - 8px); } }
+    .card-item:hover { background: #f0f0f0; }
+    .card-title { font-size: 14px; font-weight: bold; margin-bottom: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .card-meta { font-size: 12px; color: #999; }
+    .card-score { color: #f59e0b; font-size: 12px; margin-top: 5px; }
     
     /* Footer */
-    .footer { background: #1a1a2e; color: #999; padding: 30px 0; margin-top: 50px; text-align: center; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .footer p { margin-bottom: 10px; font-size: 14px; }
-    .footer a { color: #999; text-decoration: none; }
+    .footer { background: #1a1a2e; color: #999; padding: 30px 15px; margin-top: 30px; text-align: center; font-size: 13px; }
+    .footer a { color: #999; }
     .footer a:hover { color: #fff; }
     
-    /* Page Header */
-    .page-header { background: #fff; padding: 30px 0; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .page-header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; }
-    .page-header h1 { font-size: 28px; color: #333; margin-bottom: 10px; }
-    .page-header p { color: #999; font-size: 14px; }
+    /* Play Modal */
+    .play-modal { display: none; position: fixed; inset: 0; background: #000; z-index: 200; flex-direction: column; }
+    .play-modal.show { display: flex; }
+    .play-header { padding: 12px 15px; background: rgba(0,0,0,0.8); display: flex; align-items: center; gap: 15px; }
+    .play-back { color: #fff; font-size: 14px; cursor: pointer; }
+    .play-title { flex: 1; color: #fff; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .play-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 15px; }
+    .play-container iframe { width: 100%; height: 100%; max-width: 1000px; border: none; border-radius: 8px; }
     
-    /* Responsive */
-    @media (max-width: 768px) {
-      .header-inner { flex-direction: column; gap: 15px; }
-      .nav { justify-content: center; }
-      .search-box { width: 100%; }
-      .search-box input { width: 1px; flex: 1; }
-      .movie-list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    }
+    /* Tabs */
+    .tabs { display: flex; gap: 10px; padding: 10px 15px; background: #fafafa; overflow-x: auto; }
+    .tab { padding: 6px 15px; background: #fff; border-radius: 20px; font-size: 12px; color: #666; cursor: pointer; white-space: nowrap; border: 1px solid #ddd; }
+    .tab:hover, .tab.active { background: #e74c3c; color: #fff; border-color: #e74c3c; }
     
     /* Page */
     .page { display: none; }
     .page.active { display: block; }
+    
+    /* Loading */
+    .loading { text-align: center; padding: 50px; color: #999; }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <a href="#" class="logo" onclick="showPage('home'); return false;">影视<span>导航</span></a>
-      <nav class="nav">
-        <a href="#" onclick="showPage('home'); return false;" class="active">首页</a>
-        <a href="#" onclick="showPage('movie'); return false;">电影</a>
-        <a href="#" onclick="showPage('tv'); return false;">电视剧</a>
-        <a href="#" onclick="showPage('variety'); return false;">综艺</a>
-        <a href="#" onclick="showPage('anime'); return false;">动漫</a>
-        <a href="#" onclick="showPage('rank'); return false;">排行榜</a>
-      </nav>
+      <a href="#" class="logo" onclick="showPage('home')">影视<span>导航</span></a>
       <div class="search-box">
-        <input type="text" placeholder="搜索影视..." id="searchInput">
-        <button onclick="search()">搜索</button>
+        <input type="text" placeholder="搜索影视资源..." id="searchInput" onkeyup="handleSearch(event)">
+        <button onclick="doSearch()">搜索</button>
       </div>
     </div>
   </header>
   
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" onclick="showPage('home')" class="active">首页</a>
+      <a href="#" onclick="showPage('movie')">电影</a>
+      <a href="#" onclick="showPage('tv')">电视剧</a>
+      <a href="#" onclick="showPage('variety')">综艺</a>
+      <a href="#" onclick="showPage('anime')">动漫</a>
+      <a href="#" onclick="showPage('rank')">排行榜</a>
+    </div>
+  </nav>
+  
   <!-- Home Page -->
   <div id="pageHome" class="page active">
     <div class="container">
-      <div class="notice">
-        🎬 今日推荐：全网最新影视资源，每日自动更新，支持在线播放
+      <div class="update-notice">
+        今日更新：<strong>442</strong>条数据
       </div>
       
-      <h2 class="section-title">🔥 影片推荐 <small>每日更新最新资源</small></h2>
-      <div class="movie-list" id="recommendList"></div>
-      
-      <h2 class="section-title">🎬 最新电影</h2>
-      <div class="movie-list" id="movieList"></div>
-      
-      <h2 class="section-title">📺 最新电视剧</h2>
-      <div class="movie-list" id="tvList"></div>
-      
-      <h2 class="section-title">🎭 最新综艺</h2>
-      <div class="movie-list" id="varietyList"></div>
-      
-      <h2 class="section-title">🎌 最新动漫</h2>
-      <div class="movie-list" id="animeList"></div>
-      
-      <h2 class="section-title">🏆 热门排行榜</h2>
-      <div class="rank-section">
-        <div class="rank-box">
-          <div class="rank-title">电影热度榜</div>
-          <ol class="rank-list" id="movieRank"></ol>
+      <!-- 影片推荐 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🔥 影片推荐</span>
         </div>
-        <div class="rank-box">
-          <div class="rank-title">电视剧热度榜</div>
-          <ol class="rank-list" id="tvRank"></ol>
+        <div class="card-list" id="recommendCards"></div>
+      </div>
+      
+      <!-- 最新电影 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">📽️ 最新电影</span>
+          <span class="section-more" onclick="showPage('movie')">更多 ›</span>
         </div>
-        <div class="rank-box">
-          <div class="rank-title">综艺热度榜</div>
-          <ol class="rank-list" id="varietyRank"></ol>
+        <div class="list" id="movieList"></div>
+      </div>
+      
+      <!-- 最热电影 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🔥 最热电影</span>
         </div>
-        <div class="rank-box">
-          <div class="rank-title">动漫热度榜</div>
-          <ol class="rank-list" id="animeRank"></ol>
+        <div class="list" id="hotMovieList"></div>
+      </div>
+      
+      <!-- 最新电视剧 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">📺 最新电视剧</span>
+          <span class="section-more" onclick="showPage('tv')">更多 ›</span>
         </div>
+        <div class="list" id="tvList"></div>
+      </div>
+      
+      <!-- 最热电视剧 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🔥 最热电视剧</span>
+        </div>
+        <div class="list" id="hotTvList"></div>
+      </div>
+      
+      <!-- 最新综艺 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🎭 最新综艺</span>
+          <span class="section-more" onclick="showPage('variety')">更多 ›</span>
+        </div>
+        <div class="list" id="varietyList"></div>
+      </div>
+      
+      <!-- 最热综艺 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🔥 最热综艺</span>
+        </div>
+        <div class="list" id="hotVarietyList"></div>
+      </div>
+      
+      <!-- 最新动漫 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🎌 最新动漫</span>
+          <span class="section-more" onclick="showPage('anime')">更多 ›</span>
+        </div>
+        <div class="list" id="animeList"></div>
+      </div>
+      
+      <!-- 最热动漫 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🔥 最热动漫</span>
+        </div>
+        <div class="list" id="hotAnimeList"></div>
       </div>
     </div>
   </div>
   
   <!-- Movie Page -->
   <div id="pageMovie" class="page">
-    <div class="page-header">
-      <div class="page-header-inner">
-        <h1>最新电影</h1>
-        <p>高清电影资源，每日更新</p>
-      </div>
-    </div>
     <div class="container">
-      <div class="category-nav" id="movieCats">
-        <a href="#" class="active" onclick="filterMovie(this, ''); return false;">全部</a>
-        <a href="#" onclick="filterMovie(this, '动作'); return false;">动作</a>
-        <a href="#" onclick="filterMovie(this, '喜剧'); return false;">喜剧</a>
-        <a href="#" onclick="filterMovie(this, '爱情'); return false;">爱情</a>
-        <a href="#" onclick="filterMovie(this, '科幻'); return false;">科幻</a>
+      <div class="section">
+        <div class="tabs" id="movieTabs">
+          <span class="tab active" onclick="filterList(this, 'all', 'movies')">全部</span>
+          <span class="tab" onclick="filterList(this, '动作', 'movies')">动作</span>
+          <span class="tab" onclick="filterList(this, '喜剧', 'movies')">喜剧</span>
+          <span class="tab" onclick="filterList(this, '爱情', 'movies')">爱情</span>
+          <span class="tab" onclick="filterList(this, '科幻', 'movies')">科幻</span>
+          <span class="tab" onclick="filterList(this, '剧情', 'movies')">剧情</span>
+          <span class="tab" onclick="filterList(this, '动画', 'movies')">动画</span>
+        </div>
+        <div class="list" id="moviePageList"></div>
       </div>
-      <div class="movie-list" id="moviePageList"></div>
     </div>
   </div>
   
   <!-- TV Page -->
   <div id="pageTV" class="page">
-    <div class="page-header">
-      <div class="page-header-inner">
-        <h1>最新电视剧</h1>
-        <p>热门剧集，同步更新</p>
-      </div>
-    </div>
     <div class="container">
-      <div class="category-nav" id="tvCats">
-        <a href="#" class="active" onclick="filterTV(this, ''); return false;">全部</a>
-        <a href="#" onclick="filterTV(this, '国产'); return false;">国产</a>
-        <a href="#" onclick="filterTV(this, '欧美'); return false;">欧美</a>
-        <a href="#" onclick="filterTV(this, '日本'); return false;">日本</a>
-        <a href="#" onclick="filterTV(this, '韩国'); return false;">韩国</a>
+      <div class="section">
+        <div class="tabs" id="tvTabs">
+          <span class="tab active" onclick="filterList(this, 'all', 'tvs')">全部</span>
+          <span class="tab" onclick="filterList(this, '国产', 'tvs')">国产</span>
+          <span class="tab" onclick="filterList(this, '欧美', 'tvs')">欧美</span>
+          <span class="tab" onclick="filterList(this, '日本', 'tvs')">日本</span>
+          <span class="tab" onclick="filterList(this, '韩国', 'tvs')">韩国</span>
+          <span class="tab" onclick="filterList(this, '泰国', 'tvs')">泰国</span>
+        </div>
+        <div class="list" id="tvPageList"></div>
       </div>
-      <div class="movie-list" id="tvPageList"></div>
     </div>
   </div>
   
   <!-- Variety Page -->
   <div id="pageVariety" class="page">
-    <div class="page-header">
-      <div class="page-header-inner">
-        <h1>热门综艺</h1>
-        <p>综艺节目，精彩不断</p>
-      </div>
-    </div>
     <div class="container">
-      <div class="movie-list" id="varietyPageList"></div>
+      <div class="section">
+        <div class="list" id="varietyPageList"></div>
+      </div>
     </div>
   </div>
   
   <!-- Anime Page -->
   <div id="pageAnime" class="page">
-    <div class="page-header">
-      <div class="page-header-inner">
-        <h1>热门动漫</h1>
-        <p>最新动漫连载</p>
-      </div>
-    </div>
     <div class="container">
-      <div class="movie-list" id="animePageList"></div>
+      <div class="section">
+        <div class="list" id="animePageList"></div>
+      </div>
     </div>
   </div>
   
   <!-- Rank Page -->
   <div id="pageRank" class="page">
-    <div class="page-header">
-      <div class="page-header-inner">
-        <h1>热门排行榜</h1>
-        <p>最受欢迎的影视作品</p>
-      </div>
-    </div>
     <div class="container">
-      <div class="rank-section">
-        <div class="rank-box">
-          <div class="rank-title">电影热度榜</div>
-          <ol class="rank-list" id="movieRankPage"></ol>
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🏆 电影热度榜</span>
         </div>
-        <div class="rank-box">
-          <div class="rank-title">电视剧热度榜</div>
-          <ol class="rank-list" id="tvRankPage"></ol>
+        <div class="list" id="rankMovieList"></div>
+      </div>
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🏆 电视剧热度榜</span>
         </div>
-        <div class="rank-box">
-          <div class="rank-title">综艺热度榜</div>
-          <ol class="rank-list" id="varietyRankPage"></ol>
+        <div class="list" id="rankTvList"></div>
+      </div>
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🏆 综艺热度榜</span>
         </div>
-        <div class="rank-box">
-          <div class="rank-title">动漫热度榜</div>
-          <ol class="rank-list" id="animeRankPage"></ol>
+        <div class="list" id="rankVarietyList"></div>
+      </div>
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">🏆 动漫热度榜</span>
         </div>
+        <div class="list" id="rankAnimeList"></div>
       </div>
     </div>
   </div>
   
   <footer class="footer">
-    <div class="footer-inner">
-      <p>影视导航 - 聚合全网优质影视资源</p>
-      <p>本站仅提供影视资源导航服务，所有内容均来自第三方网站</p>
-      <p><a href="#">关于我们</a> | <a href="#">免责声明</a> | <a href="#">联系我们</a></p>
-    </div>
+    <p>影视导航 - 聚合全网优质影视资源</p>
+    <p style="margin-top:10px;">本站仅提供影视资源导航服务，所有内容均来自第三方网站</p>
   </footer>
+  
+  <!-- Play Modal -->
+  <div class="play-modal" id="playModal">
+    <div class="play-header">
+      <span class="play-back" onclick="closePlayer()">← 返回</span>
+      <span class="play-title" id="playTitle"></span>
+    </div>
+    <div class="play-container">
+      <iframe id="playFrame" allowfullscreen allow="autoplay; fullscreen"></iframe>
+    </div>
+  </div>
 
   <script>
-    // 数据
-    const data = {
+    // 数据 - 完全参考jianzehao.com格式
+    const db = {
       movies: [
-        { id: 1, title: '热辣滚烫', year: '2026', country: '大陆', type: '喜剧', tag: '热映', score: '8.5', cover: 'https://img1.baidu.com/it/u=4127926975,2963523815&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 2, title: '飞驰人生3', year: '2026', country: '大陆', type: '喜剧', tag: '热映', score: '8.3', cover: 'https://img1.baidu.com/it/u=3883223902,1070005689&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 3, title: '第二十条', year: '2026', country: '大陆', type: '剧情', tag: '热映', score: '8.7', cover: 'https://img1.baidu.com/it/u=2218667921,4153285928&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 4, title: '周处除三害', year: '2026', country: '台湾', type: '动作', tag: '动作', score: '8.4', cover: 'https://img1.baidu.com/it/u=1896115909,3623037830&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 5, title: '沙丘2', year: '2026', country: '美国', type: '科幻', tag: '科幻', score: '8.6', cover: 'https://img1.baidu.com/it/u=3955220084,1524560298&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 6, title: '功夫熊猫4', year: '2026', country: '美国', type: '动画', tag: '动画', score: '7.8', cover: 'https://img1.baidu.com/it/u=2391198748,1169356984&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 7, title: '哥斯拉大战金刚2', year: '2026', country: '美国', type: '动作', tag: '科幻', score: '7.5', cover: 'https://img1.baidu.com/it/u=1386939264,3674764789&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 8, title: '灿烂的她', year: '2026', country: '大陆', type: '剧情', tag: '剧情', score: '7.8', cover: 'https://img1.baidu.com/it/u=1829052875,2141046985&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 9, title: '养蜂人', year: '2026', country: '美国', type: '动作', tag: '动作', score: '7.6', cover: 'https://img1.baidu.com/it/u=2568568928,1169356984&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
-        { id: 10, title: '被我弄丢的人', year: '2026', country: '大陆', type: '爱情', tag: '爱情', score: '7.2', cover: 'https://img1.baidu.com/it/u=2155789017,2843953316&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219501, title: '生息之地', year: '2025', country: '大陆', type: '剧情', tag: '正片', score: '2.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219453, title: '脱口秀之路', year: '2025', country: '美国', type: '剧情', tag: '正片', score: '5.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 205065, title: '尤为明亮的生物', year: '2026', country: '美国', type: '剧情', tag: '正片', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 197414, title: '真人快打2', year: '2026', country: '美国', type: '动作', tag: '抢先版', score: '10.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219609, title: '乐救武林', year: '2026', country: '中国香港', type: '喜剧', tag: '正片', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219606, title: '盗影迷局', year: '2026', country: '大陆', type: '喜剧', tag: '正片', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 218415, title: '消失的人', year: '2026', country: '大陆', type: '剧情', tag: 'TC国语', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219441, title: '凌探未来', year: '2026', country: '中国大陆', type: '纪录', tag: '更新至第2集', score: '5.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219610, title: '盗影迷局', year: '2026', country: '中国大陆', type: '剧情', tag: '更新至HD', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219312, title: '伪钞重案', year: '2026', country: '大陆', type: '动作', tag: 'HD国语', score: '2.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219608, title: '周末情战', year: '2025', country: '美国', type: '剧情', tag: 'HD中字', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 219600, title: '加里市', year: '2026', country: '美国', type: '美国,喜剧', tag: 'HD中字', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 187420, title: '飞驰人生3', year: '2026', country: '大陆', type: '喜剧', tag: '正片', score: '9.0', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 1, title: '热辣滚烫', year: '2026', country: '大陆', type: '喜剧', tag: '热映', score: '8.5', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 2, title: '第二十条', year: '2026', country: '大陆', type: '剧情', tag: '热映', score: '8.7', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 3, title: '周处除三害', year: '2026', country: '台湾', type: '动作', tag: '动作', score: '8.4', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
+        { id: 4, title: '沙丘2', year: '2026', country: '美国', type: '科幻', tag: '科幻', score: '8.6', url: 'https://v.qq.com/x/cover/mzc00200o9xq56c.html' },
       ],
       tvs: [
-        { id: 101, title: '繁花', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '9.0', cover: 'https://img1.baidu.com/it/u=3893251427,2963523815&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 102, title: '南来北往', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.5', cover: 'https://img1.baidu.com/it/u=2358904561,1070005689&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 103, title: '烟火人家', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.2', cover: 'https://img1.baidu.com/it/u=1789059876,4153285928&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 104, title: '猎冰', year: '2026', country: '大陆', type: '国产', tag: '悬疑', score: '7.8', cover: 'https://img1.baidu.com/it/u=2896115909,3623037830&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 105, title: '狗剩快跑', year: '2026', country: '大陆', type: '国产', tag: '喜剧', score: '7.5', cover: 'https://img1.baidu.com/it/u=3391198748,1169356984&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 106, title: '永安梦', year: '2026', country: '大陆', type: '国产', tag: '古装', score: '7.3', cover: 'https://img1.baidu.com/it/u=4955220084,1524560298&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 107, title: '黑袍纠察队5', year: '2026', country: '美国', type: '欧美', tag: '热播', score: '9.2', cover: 'https://img1.baidu.com/it/u=1386939264,3674764789&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
-        { id: 108, title: '双程', year: '2026', country: '泰国', type: '泰国', tag: '更新', score: '8.0', cover: 'https://img1.baidu.com/it/u=3893251427,2963523815&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 219494, title: '双程', year: '2026', country: '泰国', type: '泰国', tag: '第2集', score: '6.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 219336, title: '母爱无赦', year: '2026', country: '以色列', type: '欧美', tag: '第2集', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 218172, title: '低智商犯罪', year: '2026', country: '中国大陆', type: '国产', tag: '第13集', score: '5.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 218072, title: '我的王室死对头', year: '2026', country: '韩国', type: '韩国', tag: '第1集', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 216260, title: '爱情没有神话', year: '2026', country: '大陆', type: '国产', tag: '第24集', score: '7.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 215176, title: '爱在是隆', year: '2026', country: '泰国', type: '泰国', tag: '第4集', score: '10.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 215138, title: '半个男人', year: '2026', country: '英国/美国', type: '欧美', tag: '第3集', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 212833, title: '浪漫的绝对值', year: '2026', country: '韩国', type: '韩国', tag: '第10集', score: '3.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 212650, title: '未解决之女警视厅文件捜査', year: '2026', country: '日本', type: '日本', tag: '第4集', score: '7.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 210257, title: '恶之华2026', year: '2026', country: '日本', type: '日本', tag: '第5集', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 101, title: '繁花', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '9.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 102, title: '南来北往', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.5', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 103, title: '烟火人家', year: '2026', country: '大陆', type: '国产', tag: '热播', score: '8.2', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 104, title: '猎冰', year: '2026', country: '大陆', type: '国产', tag: '悬疑', score: '7.8', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
+        { id: 197417, title: '黑袍纠察队第五季', year: '2026', country: '美国', type: '欧美', tag: '更新至06集', score: '1.0', url: 'https://v.qq.com/x/cover/mzc00200j3q7y8f.html' },
       ],
       varieties: [
-        { id: 201, title: '怦然心动20岁冬季', year: '2026', country: '大陆', type: '综艺', tag: '更新', score: '7.5', cover: 'https://img1.baidu.com/it/u=3893251427,2963523815&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 202, title: '乘风2026', year: '2026', country: '大陆', type: '综艺', tag: '更新', score: '8.5', cover: 'https://img1.baidu.com/it/u=2896115909,3623037830&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 203, title: '哈哈哈哈哈第六季', year: '2026', country: '大陆', type: '综艺', tag: '更新', score: '8.0', cover: 'https://img1.baidu.com/it/u=1789059876,4153285928&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
-        { id: 204, title: '奔跑吧第十季', year: '2026', country: '大陆', type: '综艺', tag: '更新', score: '7.2', cover: 'https://img1.baidu.com/it/u=4955220084,1524560298&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 217144, title: '虽然没准备什么菜第四季', year: '2026', country: '韩国', type: '日韩综艺', tag: '第2期', score: '7.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 216968, title: 'TXT的育儿日记', year: '2026', country: '韩国', type: '日韩综艺', tag: '第3期', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 215160, title: '奔跑吧第十季', year: '2026', country: '中国大陆', type: '大陆综艺', tag: '第3期', score: '4.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 212678, title: '姐姐的产地直送in卡拉佩', year: '2026', country: '韩国', type: '日韩综艺', tag: '第4期', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 210437, title: '押注事实', year: '2026', country: '韩国', type: '日韩综艺', tag: '第8期完结', score: '10.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 205097, title: '怦然心动20岁：冬季', year: '2026', country: '中国大陆', type: '大陆综艺', tag: '更新至20260509', score: '6.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 210010, title: '妻子的浪漫旅行2026', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260508期', score: '3.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 206577, title: '哈哈哈哈哈第六季', year: '2026', country: '大陆', type: '大陆综艺', tag: '第6期上', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 206261, title: '乘风2026', year: '2026', country: '大陆', type: '大陆综艺', tag: '更新至20260509', score: '9.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
+        { id: 186544, title: '最强大脑第13季', year: '2026', country: '大陆', type: '大陆综艺', tag: '第12期会员版', score: '8.0', url: 'https://v.qq.com/x/cover/mzc00200n1h5z8a.html' },
       ],
       animes: [
-        { id: 301, title: '关于我转生变成史莱姆这档事', year: '2026', country: '日本', type: '动漫', tag: '更新', score: '9.0', cover: 'https://img1.baidu.com/it/u=2391198748,1169356984&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 302, title: '仙逆', year: '2026', country: '大陆', type: '动漫', tag: '更新', score: '8.8', cover: 'https://img1.baidu.com/it/u=1386939264,3674764789&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 303, title: '斗罗大陆2绝世唐门', year: '2026', country: '大陆', type: '动漫', tag: '更新', score: '8.5', cover: 'https://img1.baidu.com/it/u=1829052875,2141046985&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 304, title: '武神主宰', year: '2026', country: '大陆', type: '动漫', tag: '更新', score: '8.0', cover: 'https://img1.baidu.com/it/u=2155789017,2843953316&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
-        { id: 305, title: '剑来第二季', year: '2026', country: '大陆', type: '动漫', tag: '更新', score: '8.0', cover: 'https://img1.baidu.com/it/u=2358904561,1070005689&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=400', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 210553, title: '上伊那牡丹，酒醉身姿似百', year: '2026', country: '日本', type: '日韩动漫', tag: '第5集', score: '8.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 208402, title: '轻松熊', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '1.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 208275, title: '关于我转生变成史莱姆这档事', year: '2026', country: '日本', type: '日韩动漫', tag: '第5集', score: '10.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 208274, title: '冻结地球', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '8.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 208269, title: '关于邻家的天使大人', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '6.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 138, title: '宗门里除了我都是卧底', year: '2024', country: '大陆', type: '国产动漫', tag: '第150集', score: '6.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 210557, title: '神之水滴动画版', year: '2026', country: '日本', type: '日本动漫', tag: '第5集', score: '2.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 208273, title: '自称恶役大小姐的婚约者观', year: '2026', country: '日本', type: '日韩动漫', tag: '第6集', score: '5.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 348, title: '仙武传', year: '2023', country: '大陆', type: '国产动漫', tag: '第171集', score: '10.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 166, title: '仙逆', year: '2026', country: '大陆', type: '国产动漫', tag: '更新至139集', score: '9.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 228, title: '武神主宰', year: '2026', country: '大陆', type: '国产动漫', tag: '更新至654集', score: '8.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
+        { id: 333, title: '凡人修仙传', year: '2026', country: '大陆', type: '国产动漫', tag: '第176集', score: '9.0', url: 'https://www.bilibili.com/bangumi/play/ss4020' },
       ]
     }
     
-    let currentMovieFilter = ''
-    let currentTvFilter = ''
+    let currentFilter = { movies: 'all', tvs: 'all' }
     
-    function createMovieItem(item) {
-      return '<div class="movie-item" onclick="playMovie(\'' + item.url + '\')">' +
-        '<div class="movie-cover">' +
-        '<img src="' + item.cover + '" alt="' + item.title + '" onerror="this.style.display=\'none\'">' +
-        '<span class="movie-tag">' + item.tag + '</span>' +
-        '<span class="movie-score">⭐ ' + item.score + '</span>' +
-        '</div>' +
-        '<div class="movie-info">' +
-        '<div class="movie-title">' + item.title + '</div>' +
-        '<div class="movie-meta"><span>' + item.year + '</span><span>' + item.country + '</span><span>' + item.type + '</span></div>' +
-        '</div></div>'
+    function createListItem(item, showScore = true) {
+      const scoreHtml = showScore ? `<span class="item-score">${item.score}分</span>` : ''
+      return `<div class="list-item">
+        ${scoreHtml}
+        <span class="item-title"><a href="#" onclick="playItem(${item.id}); return false;">${item.title}</a></span>
+        <span class="item-meta">${item.year}/${item.country}/${item.type}</span>
+      </div>`
     }
     
-    function createRankItem(item, index) {
-      const numClass = index < 3 ? 'rank-num top' : 'rank-num'
-      return '<li><span class="' + numClass + '">' + (index + 1) + '</span><a href="#" onclick="playMovie(\'' + item.url + '\'); return false;">' + item.title + '</a></li>'
+    function createCardItem(item) {
+      return `<div class="card-item" onclick="playItem(${item.id})">
+        <div class="card-title">${item.title}</div>
+        <div class="card-meta">${item.year}/${item.country}</div>
+        <div class="card-score">⭐ ${item.score}分 ${item.tag}</div>
+      </div>`
     }
     
     function renderHomePage() {
-      const recommends = [...data.movies.slice(0, 4), ...data.tvs.slice(0, 4)]
-      document.getElementById('recommendList').innerHTML = recommends.map(m => createMovieItem(m)).join('')
-      document.getElementById('movieList').innerHTML = data.movies.map(m => createMovieItem(m)).join('')
-      document.getElementById('tvList').innerHTML = data.tvs.map(t => createMovieItem(t)).join('')
-      document.getElementById('varietyList').innerHTML = data.varieties.map(v => createMovieItem(v)).join('')
-      document.getElementById('animeList').innerHTML = data.animes.map(a => createMovieItem(a)).join('')
+      // 影片推荐 - 卡片形式
+      const recommends = [...db.movies.slice(0, 4), ...db.tvs.slice(0, 4), ...db.varieties.slice(0, 2)]
+      document.getElementById('recommendCards').innerHTML = recommends.map(m => createCardItem(m)).join('')
       
-      document.getElementById('movieRank').innerHTML = data.movies.slice(0, 10).map((m, i) => createRankItem(m, i)).join('')
-      document.getElementById('tvRank').innerHTML = data.tvs.slice(0, 10).map((t, i) => createRankItem(t, i)).join('')
-      document.getElementById('varietyRank').innerHTML = data.varieties.slice(0, 10).map((v, i) => createRankItem(v, i)).join('')
-      document.getElementById('animeRank').innerHTML = data.animes.slice(0, 10).map((a, i) => createRankItem(a, i)).join('')
+      // 最新电影
+      document.getElementById('movieList').innerHTML = db.movies.slice(0, 10).map(m => createListItem(m)).join('')
+      
+      // 最热电影
+      const hotMovies = [...db.movies].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      document.getElementById('hotMovieList').innerHTML = hotMovies.slice(0, 10).map((m, i) => createListItem(m, false)).join('')
+      
+      // 最新电视剧
+      document.getElementById('tvList').innerHTML = db.tvs.slice(0, 10).map(t => createListItem(t)).join('')
+      
+      // 最热电视剧
+      const hotTvs = [...db.tvs].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      document.getElementById('hotTvList').innerHTML = hotTvs.slice(0, 10).map((t, i) => createListItem(t, false)).join('')
+      
+      // 最新综艺
+      document.getElementById('varietyList').innerHTML = db.varieties.slice(0, 10).map(v => createListItem(v)).join('')
+      
+      // 最热综艺
+      const hotVarieties = [...db.varieties].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      document.getElementById('hotVarietyList').innerHTML = hotVarieties.slice(0, 10).map((v, i) => createListItem(v, false)).join('')
+      
+      // 最新动漫
+      document.getElementById('animeList').innerHTML = db.animes.slice(0, 10).map(a => createListItem(a)).join('')
+      
+      // 最热动漫
+      const hotAnimes = [...db.animes].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      document.getElementById('hotAnimeList').innerHTML = hotAnimes.slice(0, 10).map((a, i) => createListItem(a, false)).join('')
     }
     
-    function renderMoviePage(filter) {
-      let list = currentMovieFilter ? data.movies.filter(m => m.type.includes(currentMovieFilter)) : data.movies
-      document.getElementById('moviePageList').innerHTML = list.map(m => createMovieItem(m)).join('')
+    function renderMoviePage() {
+      let list = currentFilter.movies === 'all' ? db.movies : db.movies.filter(m => m.type.includes(currentFilter.movies))
+      document.getElementById('moviePageList').innerHTML = list.map(m => createListItem(m)).join('')
     }
     
-    function renderTVPage(filter) {
-      let list = currentTvFilter ? data.tvs.filter(t => t.country.includes(currentTvFilter)) : data.tvs
-      document.getElementById('tvPageList').innerHTML = list.map(t => createMovieItem(t)).join('')
+    function renderTvPage() {
+      let list = currentFilter.tvs === 'all' ? db.tvs : db.tvs.filter(t => t.country.includes(currentFilter.tvs))
+      document.getElementById('tvPageList').innerHTML = list.map(t => createListItem(t)).join('')
     }
     
     function renderVarietyPage() {
-      document.getElementById('varietyPageList').innerHTML = data.varieties.map(v => createMovieItem(v)).join('')
+      document.getElementById('varietyPageList').innerHTML = db.varieties.map(v => createListItem(v)).join('')
     }
     
     function renderAnimePage() {
-      document.getElementById('animePageList').innerHTML = data.animes.map(a => createMovieItem(a)).join('')
+      document.getElementById('animePageList').innerHTML = db.animes.map(a => createListItem(a)).join('')
     }
     
     function renderRankPage() {
-      document.getElementById('movieRankPage').innerHTML = data.movies.slice(0, 10).map((m, i) => createRankItem(m, i)).join('')
-      document.getElementById('tvRankPage').innerHTML = data.tvs.slice(0, 10).map((t, i) => createRankItem(t, i)).join('')
-      document.getElementById('varietyRankPage').innerHTML = data.varieties.slice(0, 10).map((v, i) => createRankItem(v, i)).join('')
-      document.getElementById('animeRankPage').innerHTML = data.animes.slice(0, 10).map((a, i) => createRankItem(a, i)).join('')
+      const rankMovies = [...db.movies].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      const rankTvs = [...db.tvs].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      const rankVarieties = [...db.varieties].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      const rankAnimes = [...db.animes].sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+      
+      document.getElementById('rankMovieList').innerHTML = rankMovies.slice(0, 15).map((m, i) => createListItem(m, false)).join('')
+      document.getElementById('rankTvList').innerHTML = rankTvs.slice(0, 15).map((t, i) => createListItem(t, false)).join('')
+      document.getElementById('rankVarietyList').innerHTML = rankVarieties.slice(0, 15).map((v, i) => createListItem(v, false)).join('')
+      document.getElementById('rankAnimeList').innerHTML = rankAnimes.slice(0, 15).map((a, i) => createListItem(a, false)).join('')
     }
     
     function showPage(page) {
-      const pages = ['pageHome', 'pageMovie', 'pageTV', 'pageVariety', 'pageAnime', 'pageRank']
-      pages.forEach(p => {
-        document.getElementById(p).classList.remove('active')
-      })
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'))
       document.getElementById('page' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add('active')
       
       document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'))
       
       switch(page) {
         case 'home': renderHomePage(); break
-        case 'movie': renderMoviePage(''); break
-        case 'tv': renderTVPage(''); break
+        case 'movie': renderMoviePage(); break
+        case 'tv': renderTvPage(); break
         case 'variety': renderVarietyPage(); break
         case 'anime': renderAnimePage(); break
         case 'rank': renderRankPage(); break
       }
       
       window.scrollTo(0, 0)
+      return false
     }
     
-    function filterMovie(el, type) {
-      document.querySelectorAll('#movieCats a').forEach(a => a.classList.remove('active'))
+    function filterList(el, type, listType) {
+      document.querySelectorAll(`#${listType === 'movies' ? 'movieTabs' : 'tvTabs'} .tab`).forEach(t => t.classList.remove('active'))
       el.classList.add('active')
-      currentMovieFilter = type
-      renderMoviePage(type)
+      currentFilter[listType] = type
+      if (listType === 'movies') renderMoviePage()
+      else renderTvPage()
     }
     
-    function filterTV(el, type) {
-      document.querySelectorAll('#tvCats a').forEach(a => a.classList.remove('active'))
-      el.classList.add('active')
-      currentTvFilter = type
-      renderTVPage(type)
+    function playItem(id) {
+      let item = null
+      for (const cat of [db.movies, db.tvs, db.varieties, db.animes]) {
+        item = cat.find(i => i.id === id)
+        if (item) break
+      }
+      if (!item) return
+      
+      document.getElementById('playTitle').textContent = item.title
+      document.getElementById('playFrame').src = item.url
+      document.getElementById('playModal').classList.add('show')
     }
     
-    function playMovie(url) {
-      window.open(url, '_blank')
+    function closePlayer() {
+      document.getElementById('playModal').classList.remove('show')
+      document.getElementById('playFrame').src = ''
     }
     
-    function search() {
+    function doSearch() {
       const kw = document.getElementById('searchInput').value.trim()
       if (kw) {
         alert('搜索: ' + kw + '\n\n功能开发中...')
       }
     }
     
-    document.getElementById('searchInput').addEventListener('keyup', function(e) {
-      if (e.key === 'Enter') search()
-    })
+    function handleSearch(e) {
+      if (e.key === 'Enter') doSearch()
+    }
     
+    // 初始化
     renderHomePage()
   </script>
 </body>
